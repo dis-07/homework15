@@ -1,21 +1,28 @@
 const API_URL = 'https://jsonplaceholder.typicode.com/albums';
 
 const getAlboms = async () => {
-    let ul = document.createElement('ul');
-    ul.className = 'albums';
-    document.body.append(ul);
     try {
         const responce = await fetch (API_URL);
         const data = await responce.json();
-        data.forEach(item => {
-            let li = document.createElement('li');
-            li.className = 'album_title';
-            li.innerHTML = item.title;
-            ul.append(li);
-        });
+        return data;
     }   catch (err) {
         console.error(err);
     }
 }
 
-getAlboms();
+const getDataTitle = async () => {
+    const title = await getAlboms();
+
+    title.forEach(item => {
+        let li = document.createElement('li');
+        li.className = 'album_title';
+        li.innerHTML = item.title;
+        ul.append(li);
+    });
+}
+
+let ul = document.createElement('ul');
+    ul.className = 'albums';
+    document.body.append(ul);
+
+    getDataTitle();
